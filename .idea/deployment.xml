@@ -12,7 +12,14 @@
       <paths name="lab02@13.124.193.28:22 key">
         <serverdata>
           <mappings>
-            <mapping deploy="/imgdesc" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/lab02/imgdesc" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="lab02@13.124.193.28:22 key (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/lab02/imgdesc" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

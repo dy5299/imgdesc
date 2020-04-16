@@ -2,12 +2,11 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="d030d6ef-a525-4850-9835-d6de5432e4e8" name="Multcampus">
-        <fileTransfer accessType="SFTP" host="13.124.193.28" port="22" sshConfigId="d70d007b-04ef-46ab-b8c0-b513b2b85931" sshConfig="lab02@13.124.193.28:22 key" keyPair="true">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
-          </advancedOptions>
-        </fileTransfer>
+      <webServer id="abecf06d-3564-4104-960b-9e8024949050" name="lab02@13.124.193.28:22 key">
+        <fileTransfer rootFolder="/home/lab02" accessType="SFTP" host="13.124.193.28" port="22" sshConfigId="d70d007b-04ef-46ab-b8c0-b513b2b85931" sshConfig="lab02@13.124.193.28:22 key" keyPair="true" />
+      </webServer>
+      <webServer id="54add73c-ab14-4a3e-9e26-45d75214c242" name="lab02@13.124.193.28:22 key (1)">
+        <fileTransfer accessType="SFTP" host="13.124.193.28" port="22" sshConfigId="d70d007b-04ef-46ab-b8c0-b513b2b85931" sshConfig="lab02@13.124.193.28:22 key" keyPair="true" />
       </webServer>
     </option>
   </component>
