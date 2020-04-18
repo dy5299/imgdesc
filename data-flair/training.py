@@ -375,7 +375,7 @@ def generate_desc(model, tokenizer, photo, max_length):
     return in_text
 
 
-# path = 'Flicker8k_Dataset/111537222_07e56d5a30.jpg'
+# path = 'Flickr8k_Dataset/111537222_07e56d5a30.jpg'
 max_length = 32
 tokenizer = load(open("tokenizer.p", "rb"))
 model = load_model('models/model_0.h5')  # model_9
