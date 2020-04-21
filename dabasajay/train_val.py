@@ -1,3 +1,4 @@
+print('__file__={0:<35} | __name__={1:<20} | __package__={2:<20}'.format(__file__,__name__,str(__package__)))
 from pickle import load
 from utils.model import *
 from utils.load_data import loadTrainData, loadValData, data_generator
