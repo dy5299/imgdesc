@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import pymysql
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +25,10 @@ SECRET_KEY = '(&2@%0r9*m#8exl@rfbcsz1*fe3^z=45pr#*00yuvd9*84f^ud'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost','127.0.0.1',
+    'ec2-13-124-193-28.ap-northeast-2.compute.amazonaws.com',
+]
 
 
 # Application definition
@@ -74,19 +76,21 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-pymysql.version_info = (1, 3, 13, "final", 0)
-pymysql.install_as_MySQLdb()
+
+#import pymysql
+#pymysql.version_info = (1, 3, 13, "final", 0)
+#pymysql.install_as_MySQLdb()
 
 DATABASES = {
     'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE' : 'django.db.backends.mysql',
-        'NAME' : 'users',
-        'USER' : 'root',
-        'PASSWORD' : '1234',
-        'HOST' : '127.0.0.1',
-        'POST' : '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'mydb.sqlite3'),
+#        'ENGINE' : 'django.db.backends.mysql',
+#        'NAME' : 'users',
+#        'USER' : 'root',
+#        'PASSWORD' : '1234',
+#        'HOST' : '127.0.0.1',
+#        'POST' : '3306',
     }
 }
 
@@ -113,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ko-kr'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -129,6 +133,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR,'media')
