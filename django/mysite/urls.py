@@ -20,7 +20,7 @@ from imgdesc.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', Imgdesc_main.as_view(), name='index'),
+    path('', Imgdesc_main.as_view(), name='index'),
 #    path('index/', imgdesc.urls),
 #    path('home/', imgdesc.urls),
 #    path('login/', login.urls),
