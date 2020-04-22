@@ -3,20 +3,34 @@ Here is index. 여긴 안 나오지롱
 {% block content %}
 
 
-<h1 class="cover-heading">Here is INDEX PAGE</h1>
-<p class="lead">UPLOAD A PHOTO</p>
+<div class="masthead clearfix">
+  <div class="inner">
+    <h3 class="masthead-brand">Index</h3>
+    <nav>
+      <ul class="nav masthead-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
-{% for lst in mydb %}
-    {{ lst.img_no }}
-    {{ lst.userID }}
-    {{ lst.url }}
-    {{ lst.caption }}
-    {{ lst.created_date }}
-{% endfor %}
+<div class="inner cover">
+  <h1 class="cover-heading">Here is INDEX PAGE</h1>
+  <p class="lead">UPLOAD A PHOTO</p>
 
-<p class="lead">
-  <a href="#" class="btn btn-lg btn-default">Learn more</a>
-</p>
+  {% for lst in mydb %}
+      {{ lst.img_no }}
+      {{ lst.userID }}
+      {{ lst.url }}
+      {{ lst.caption }}
+      {{ lst.created_date }}
+  {% endfor %}
 
+  <p class="lead">
+    <a href="#" class="btn btn-lg btn-default">Upload your Photo</a>
+  </p>
+</div>
 
 {% endblock %}

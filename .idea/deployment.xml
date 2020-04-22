@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" autoUpload="Always" serverName="lab02 (project level)">
     <serverData>
       <paths name="Multcampus">
         <serverdata>
@@ -9,14 +9,21 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="lab02@13.124.193.28:22 key">
+      <paths name="lab02">
         <serverdata>
           <mappings>
             <mapping deploy="/home/lab02/imgdesc" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="lab02@13.124.193.28:22 key (1)">
+      <paths name="lab02 (project level)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/imgdesc" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="lab02_remote interpreter">
         <serverdata>
           <mappings>
             <mapping deploy="/home/lab02/imgdesc" local="$PROJECT_DIR$" />
@@ -24,5 +31,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

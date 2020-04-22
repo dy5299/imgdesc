@@ -12,3 +12,4 @@ class Imgdesc_main(generic.TemplateView):
 
         template_name = 'imgdesc_main/index.html'
         return render(request, template_name, {'mydb' : mydb})
+

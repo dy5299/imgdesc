@@ -23,5 +23,5 @@ urlpatterns = [
     path('', Imgdesc_main.as_view(), name='index'),
 #    path('index/', imgdesc.urls),
 #    path('home/', imgdesc.urls),
-#    path('login/', login.urls),
+    path('login/', login.urls),
 ]
