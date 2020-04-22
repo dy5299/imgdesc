@@ -9,4 +9,5 @@ app_name = 'imgdesc'
 
 urlpatterns = [
     path('', views.IndexView.as_view()),
+    path('<int:pk>/<mode>/', views.BoardView.as_view(), name='board')
 ]

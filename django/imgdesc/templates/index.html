@@ -1,4 +1,4 @@
-{% extends 'imgdesc_main/header.html' %}
+{% extends 'header.html' %}
 Here is index. 여긴 안 나오지롱
 {% block content %}
 
@@ -6,7 +6,18 @@ Here is index. 여긴 안 나오지롱
 <h1 class="cover-heading">We'll descript your Image</h1>
 <p class="lead">Just UPLOAD a PHOTO</p>
 
-<button type="button" class="btn btn-primary">Upload your Photo</button>
+
+<form method="post">
+{% csrf_token %}
+    <div class="form-group">
+      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+      <small id="fileHelp" class="form-text text-muted">jpg, jpeg, png, bmp 그림 파일을 지원합니다.</small>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Upload">
+
+</form>
+
+
 <br/><br/>
 <table class="table table-hover">
   <thead>

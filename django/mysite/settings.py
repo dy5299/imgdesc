@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'imgdesc',   #추가
+    #추가
+    'imgdesc',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +137,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 #LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
