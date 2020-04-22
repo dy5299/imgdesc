@@ -3,34 +3,41 @@ Here is index. 여긴 안 나오지롱
 {% block content %}
 
 
-<div class="masthead clearfix">
-  <div class="inner">
-    <h3 class="masthead-brand">Index</h3>
-    <nav>
-      <ul class="nav masthead-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Features</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</div>
+<h1 class="cover-heading">We'll descript your Image</h1>
+<p class="lead">Just UPLOAD a PHOTO</p>
 
-<div class="inner cover">
-  <h1 class="cover-heading">Here is INDEX PAGE</h1>
-  <p class="lead">UPLOAD A PHOTO</p>
-
+<button type="button" class="btn btn-primary">Upload your Photo</button>
+<br/><br/>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Num</th>
+      <th scope="col">userid</th>
+      <th scope="col">image</th>
+      <th scope="col">caption</th>
+      <th scope="col">created_date</th>
+    </tr>
+  </thead>
+  <tbody>
   {% for lst in mydb %}
-      {{ lst.img_no }}
-      {{ lst.userID }}
-      {{ lst.url }}
-      {{ lst.caption }}
-      {{ lst.created_date }}
+    <tr class="table-light">
+      <th scope="row">{{ lst.img_no }}</th>
+      <td>{{ lst.userID }}</td>
+      <td>{{ lst.url }}</td>
+      <td>{{ lst.caption }}</td>
+      <td>{{ lst.created_date }}</td>
+    </tr>
   {% endfor %}
+  </tbody>
+</table>
 
-  <p class="lead">
-    <a href="#" class="btn btn-lg btn-default">Upload your Photo</a>
-  </p>
-</div>
+
+
+
+<p class="lead">
+  <a href="#" class="btn btn-lg btn-default">link a</a>
+</p>
+
 
 {% endblock %}
+

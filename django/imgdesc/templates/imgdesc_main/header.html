@@ -12,8 +12,8 @@
 <!--    <link rel="icon" href="../../favicon.ico">-->
     <title>IMAGE TO TXT</title>
 
-    <!-- 부트스트랩 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부트스트랩 https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css -->
+    <link rel="stylesheet" href="{% static 'imgdesc/css/bootstrap_theme.css' %}">
     <!-- Custom styles for this template -->
     <link href="{% static 'imgdesc/css/custom.css' %}" rel="stylesheet">
 
@@ -31,8 +31,58 @@
       <div class="site-wrapper-inner">
 
         <div class="cover-container">
-          {% block content %}
-          {% endblock %}
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">IMAGE TO TXT</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="#">List</a></li>
+
+
+                  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    {% if user.is_active %}
+                    <button type="button" class="btn btn-primary">{% firstof user.get_username %}</button><div class="btn-group" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                        <a class="dropdown-item" href="#">logout</a>
+                      </div>
+                    </div>
+                    {% else %}
+                    <button type="button" class="btn btn-primary">login</button>
+                    <div class="btn-group" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                        <a class="dropdown-item" href="#">Register</a>
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
+
+                  <ul class="nav nav-pills">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                      <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                      </div>
+                    </li>
+                  </ul>
+
+
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            {% block content %}
+            {% endblock %}
+          </div>
 
           <div class="mastfoot">
             <div class="inner">
@@ -60,3 +110,4 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'imgdesc/js/custom.js' %}"></script>

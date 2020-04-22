@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.utils import timezone
 
 
 class AuthGroup(models.Model):
@@ -118,12 +119,12 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class ImgdescList(models.Model):
+class ImgdescDB(models.Model):
     img_no = models.AutoField(primary_key=True, blank=True)
     userid = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='userID')  # Field name made lowercase.
     url = models.CharField(max_length=100)
     caption = models.CharField(max_length=100, blank=True, null=True)
-    created_date = models.CharField(max_length=20)
+    created_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         managed = False
