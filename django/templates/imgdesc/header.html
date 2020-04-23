@@ -40,8 +40,8 @@
                   <li><a href="{% url 'accounts:signin'%}">Login</a></li>
                   <li><a href="{% url 'accounts:signout'%}">Logout</a></li>
                   <li><a href="{% url 'accounts:signup'%}">Register</a></li>
-                  <li><a href="/imgdesc/list">List</a></li>
-                  <li><a href="/imgdesc/0/add">Add</a></li>
+                  <li><a href="{% url 'imgdesc:list' %}">List</a></li>
+                  <li><a href="{% url 'imgdesc:board' pk=0 mode='add' %}">Add</a></li>
 
 
                   {% if user.is_authenticated %}
@@ -58,7 +58,7 @@
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">sign...</a>
                       <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="/accounts/signin">Login</a>
+                        <a class="dropdown-item" href="{% url 'accounts:signin'%}">Login</a>
                       </div>
                       <div class="dropdown-menu" style="">
                         <a class="dropdown-item" href="#">Register</a>
