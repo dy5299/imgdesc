@@ -12,12 +12,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-
+'''
 # captioning
 import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../captioning/')))
 from testing_oneimg import run_captioning, translation
-
+'''
 # Create your views here.
 class IndexView(generic.TemplateView):
     def get(self, request, *args, **kwargs):

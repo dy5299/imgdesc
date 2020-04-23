@@ -1,0 +1,17 @@
+{% extends '../imgdesc/header.html' %}
+{% block content %}
+
+<form action="{% url 'accounts:signup'%}" method="post">    <!--action 빼면 자기 자신, url이라는 명령어 뒤 name-->
+{% csrf_token %}
+  <fieldset>
+    <legend>Register</legend>
+    <div class="form-group">{{ form.as_p }}</div>
+    <input type="submit" value="Register" class="btn btn-primary" />
+  </fieldset>
+</form>
+
+
+
+
+
+{% endblock %}

@@ -39,7 +39,8 @@
                   <li class="active"><a href="{% url 'index' %}">Home</a></li>
                   <li><a href="{% url 'accounts:signin'%}">Login</a></li>
                   <li><a href="#">{% firstof user.username %}</a></li>
-                  <li><a href="/accounts/signout">Logout</a></li>
+                  <li><a href="{% url 'accounts:signout'%}">Logout</a></li>
+                  <li><a href="{% url 'accounts:signup'%}">Register</a></li>
                   <li><a href="/imgdesc/list">List</a></li>
                   <li><a href="/imgdesc/0/add">Add</a></li>
 
@@ -58,10 +59,10 @@
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">sign...</a>
                       <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="/accounts/signin">login</a>
+                        <a class="dropdown-item" href="/accounts/signin">Login</a>
                       </div>
                       <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="#">register</a>
+                        <a class="dropdown-item" href="#">Register</a>
                       </div>
                     </li>
                   </ul>

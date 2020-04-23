@@ -1,20 +1,28 @@
 from django.shortcuts import render, redirect, get_object_or_404
-#from .models import ImgdescDB
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 from django.views import View
-
+from .forms import UserForm
 
 class SignupView(View):
+    def get(self, request):
+        form = UserForm()
+        return render(request, "accounts/signup.html", {'form':form})
+
     def post(self, request):
-        user = User.objects.create_user(username='john', password='johnpassword')
-        return redirect('index')
+        form = UserForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return redirect('index')
+
+
 
 class SigninView(View):
     def get(self, request):
-        return render(request, "accounts/login.html")
+        return render(request, "accounts/signin.html")
 
     def post(self, request):
         #Loging 처리
