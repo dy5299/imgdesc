@@ -1,0 +1,33 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Num</th>
+      <th scope="col">userid</th>
+      <th scope="col">image</th>
+      <th scope="col">caption</th>
+      <th scope="col">created_date</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for lst in mydb %}
+    <tr class="table-light">
+      <th scope="row">{{ lst.img_no }}</th>
+      <td>{{ lst.userid }}</td>
+      <td>
+        {% if lst.photo %}
+          <img src="{{ lst.photo.url }}" width="100px" alt=""></td>
+        {% endif %}
+      </td>
+      <td>{{ lst.caption }}</td>
+      <td>{{ lst.created_date }}</td>
+      <td><a href="#">Del</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

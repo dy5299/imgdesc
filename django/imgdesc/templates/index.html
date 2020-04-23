@@ -19,28 +19,7 @@ Here is index. 여긴 안 나오지롱
 
 
 <br/><br/>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Num</th>
-      <th scope="col">userid</th>
-      <th scope="col">image</th>
-      <th scope="col">caption</th>
-      <th scope="col">created_date</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for lst in mydb %}
-    <tr class="table-light">
-      <th scope="row">{{ lst.img_no }}</th>
-      <td>{{ lst.userID }}</td>
-      <td>{{ lst.url }}</td>
-      <td>{{ lst.caption }}</td>
-      <td>{{ lst.created_date }}</td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+
 
 
 

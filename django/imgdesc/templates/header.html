@@ -37,42 +37,34 @@
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                  <li><a href="#">List</a></li>
+                  <li><a href="{% url 'login' %}">Login</a></li>
+                  <li><a href="#">{% firstof user.username %}</a></li>
+                  <li><a href="#">Logout</a></li>
+                  <li><a href="/imgdesc/0/add">Add</a></li>
 
 
-                  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    {% if user.is_active %}
-                    <button type="button" class="btn btn-primary">{% firstof user.get_username %}</button><div class="btn-group" role="group">
-                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
-                        <a class="dropdown-item" href="#">logout</a>
-                      </div>
-                    </div>
-                    {% else %}
-                    <button type="button" class="btn btn-primary">login</button>
-                    <div class="btn-group" role="group">
-                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
-                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                        <a class="dropdown-item" href="#">Register</a>
-                      </div>
-                    </div>
-                    {% endif %}
-                  </div>
-
+                  {% if user.is_active %}
                   <ul class="nav nav-pills">
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% firstof user.username %}</a>
                       <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
+                        <a class="dropdown-item" href="#">logout</a>
                       </div>
                     </li>
                   </ul>
-
+                  {% else %}
+                  <ul class="nav nav-pills">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">sign...</a>
+                      <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" href="{% url 'login' %}">login</a>
+                      </div>
+                      <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" href="#">register</a>
+                      </div>
+                    </li>
+                  </ul>
+                  {% endif %}
 
                 </ul>
               </nav>

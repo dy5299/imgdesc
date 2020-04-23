@@ -27,3 +27,9 @@ urlpatterns = [
 
     path('imgdesc/', include('imgdesc.urls')),
 ]
+
+from django.conf.urls.static import static
+from django.conf import settings
+#개발환경에서의 media 파일 서빙
+#if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
