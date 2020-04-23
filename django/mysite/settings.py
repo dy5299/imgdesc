@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #추가
+    #사용자 추가
     'imgdesc',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -59,8 +60,8 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -139,5 +140,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-LOGIN_URL = '/account/login/'
-#LOGIN_REDIRECT_URL = '/'
+#LOGIN_URL = '/accounts/signin/'
+LOGIN_REDIRECT_URL = 'accounts:signin'

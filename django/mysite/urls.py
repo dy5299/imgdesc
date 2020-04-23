@@ -23,10 +23,9 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
 #    path('index', IndexView.as_view()),
 #    path('home/', IndexView.as_view()),
-    path('account/<mode>/', LoginView.as_view(), name='account'),
-#    path('login/', LoginView.as_view(), name='login'),
 
     path('imgdesc/', include('imgdesc.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
 
 from django.conf.urls.static import static

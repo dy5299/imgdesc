@@ -1,0 +1,33 @@
+from django.shortcuts import render, redirect, get_object_or_404
+#from .models import ImgdescDB
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+
+from django.views import View
+
+
+class SignupView(View):
+    def post(self, request):
+        user = User.objects.create_user(username='john', password='johnpassword')
+        return redirect('index')
+
+class SigninView(View):
+    def get(self, request):
+        return render(request, "accounts/login.html")
+
+    def post(self, request):
+        #Loging 처리
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+#        if user == None :
+#            return redirect('signin')    #urls.py에서 지정한 name. NOT 경로명.
+        #로그인 성공한 경우
+        login(request,user)
+        return redirect('index')
+
+class SignoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('index')
