@@ -37,7 +37,7 @@
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                  <li><a href="/accounts/signin">Login</a></li>
+                  <li><a href="{% url 'accounts:signin'%}">Login</a></li>
                   <li><a href="#">{% firstof user.username %}</a></li>
                   <li><a href="/accounts/signout">Logout</a></li>
                   <li><a href="/imgdesc/list">List</a></li>

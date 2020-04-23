@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from imgdesc.views import *
+import imgdesc.views
+#import accounts.views      #나중에 필요하면 써
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name='index'),
+    path('', imgdesc.views.IndexView.as_view(), name='index'),
 #    path('index', IndexView.as_view()),
 #    path('home/', IndexView.as_view()),
 
