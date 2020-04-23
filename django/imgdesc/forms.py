@@ -1,5 +1,5 @@
 from django import forms
-from . import models
+from .models import ImgdescDB
 
 def validator(value):
     if value.split('.')[-1] not in ['jpg','jpeg','png','bmp'] :
@@ -10,8 +10,8 @@ class PostForm(forms.ModelForm):
     #    title = CharField(label='제목', max_length=20, validators=[validator])
     #    text = CharField(label='내용', widget=Textarea)
     class Meta:
-        model = models.ImgdescDB    #model은 쟝고가 정의한 것. 에다 model data를 넣어준다
-        fields = ['userid','caption','photo']      #가져올 fields만 선택 가능하다. 'created_date','userid',
+        model = ImgdescDB    #model은 쟝고가 정의한 것. 에다 model data를 넣어준다
+        fields = ['caption','photo']      #가져올 fields만 선택 가능하다. 'created_date','userid',
 #        fields = '__all__'
 
     def __init__(self, *args, **kwargs):                    #내 생성자 정의

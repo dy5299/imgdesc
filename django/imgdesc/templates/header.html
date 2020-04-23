@@ -37,9 +37,10 @@
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                  <li><a href="{% url 'login' %}">Login</a></li>
+                  <li><a href="{% url 'account' mode='login' %}">Login</a></li>
                   <li><a href="#">{% firstof user.username %}</a></li>
-                  <li><a href="#">Logout</a></li>
+                  <li><a href="{% url 'account' mode='logout' %}">Logout</a></li>
+                  <li><a href="/imgdesc/list">List</a></li>
                   <li><a href="/imgdesc/0/add">Add</a></li>
 
 
@@ -57,7 +58,7 @@
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">sign...</a>
                       <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="{% url 'login' %}">login</a>
+                        <a class="dropdown-item" href="{% url 'account' mode='login' %}">login</a>
                       </div>
                       <div class="dropdown-menu" style="">
                         <a class="dropdown-item" href="#">register</a>
