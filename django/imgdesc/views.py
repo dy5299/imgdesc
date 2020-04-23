@@ -8,7 +8,6 @@ from django.http import HttpResponse
 from django.forms import Form, CharField, Textarea, ValidationError
 from .forms import PostForm
 
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -73,7 +72,7 @@ class BoardView(View):
             print(User)
 
             author = ImgdescDB.objects.create(userid=request.user)              #user id는 폼 이전에 미리 채움
-            form = PostForm(request.POST, request.FILES,instance=author)       #받은 데이터로 폼 채움
+            form = PostForm(request.POST, request.FILES, instance=author)       #받은 데이터로 폼 채움
         # 수정에서 submit 시
         else:
             post = get_object_or_404(ImgdescDB, pk=pk)
