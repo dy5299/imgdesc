@@ -89,6 +89,13 @@ def translation(input):
 	else:
 		return("Error Code:" + rescode)
 
-myresult=run_captioning('test_data/3.jpg')
-print(myresult)
-print(translation(myresult))
+if __name__ == '__main__':
+	import argparse
+	ap = argparse.ArgumentParser()
+	ap.add_argument('-i', '--image', required=True, help="Image Path")
+	args = vars(ap.parse_args())
+	img_path = args['image']
+
+	myresult=run_captioning(img_path)
+	print(myresult)
+	print(translation(myresult))
