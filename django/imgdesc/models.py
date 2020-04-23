@@ -15,7 +15,7 @@ class ImgdescDB(models.Model):
     img_no = models.AutoField(primary_key=True, blank=True)
     userid = models.ForeignKey(User, models.DO_NOTHING, db_column='userID')  # Field name made lowercase.
 #    userid = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING) #이걸로하면 column선택 못해서..우선위에로
-    photo = models.ImageField(upload_to="%Y/%m/%d")
+    photo = models.ImageField(upload_to="%Y/%m/%d", null=False)
     caption = models.CharField(max_length=100, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 

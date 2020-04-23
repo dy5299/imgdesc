@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 # captioning
 import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../captioning/')))
-from testing_oneimg import run_captioning, translation
+from testing_oneimg import run_captioning#, translation
 '''
 # Create your views here.
 class IndexView(generic.TemplateView):
@@ -70,9 +70,9 @@ class BoardView(View):
         if pk == 0:
             print(request.user)
             print(User)
-
-            author = ImgdescDB.objects.create(userid=request.user)              #user id는 폼 이전에 미리 채움
+            author = ImgdescDB.objects.create(userid=request.user)              #user id는 폼 이전에 미리 채움. NOT NULL이라서
             form = PostForm(request.POST, request.FILES, instance=author)       #받은 데이터로 폼 채움
+
         # 수정에서 submit 시
         else:
             post = get_object_or_404(ImgdescDB, pk=pk)
@@ -82,7 +82,9 @@ class BoardView(View):
         if form.is_valid():
             post = form.save(commit=False)
             if pk == 0 :
-                post.userid = userid
+#                post.userid = request.user      #유효성 한 다음에 다시 user 넣는건가.. 위와 중복이라 뺌.
+                #            captioning_result = run_captioning(request.FILES)
+                post.caption = 'caption_automatic test'     #결과는 이자리에 넣으면 된다.
                 post.save()         #form data로부터 post data(model data)를 얻기 위해서 save. NOT for save.
             else :
                 post.publish()
