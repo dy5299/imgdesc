@@ -22,5 +22,10 @@ class ImgdescDB(models.Model):
     def _str__(self):   #객체의 문자열 표현 메소드
         return self.caption
 
+    # Delete overwriting 하면 파일이 ImgdescDB 객체 인스턴스와 함께 삭제될 것이다.
+    def delete(self, *args, **kwargs):
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.photo.path))
+        super(ImgdescDB, self).delete(*args, **kargs)   #원래의 delete 함수를 실행
+
 #    class Meta:
 #        db_table = 'imgdesc_list'  #setting the db name. default value: myapp_modelName
