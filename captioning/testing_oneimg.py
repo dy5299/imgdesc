@@ -7,6 +7,10 @@ import os
 
 from config import config
 
+# for thread error
+import keras.backend.tensorflow_backend as tb
+tb._SYMBOLIC_SCOPE.value = True
+
 """
     *Some simple checking
 """
@@ -34,7 +38,10 @@ def extract_features(filename, model, model_type):
 	features = model.predict(image, verbose=0)
 	return features
 
-def run_captioning(image_file,):
+def run_captioning(image_file):
+#	import datetime
+#	today = datetime.date.today()
+#	image_file = '/home/lab02/imgdesc/django/media/' + '{:/%Y%m/%d/}'.format(today) + image_file_name
 	# Load the tokenizer
 	tokenizer_path = config['tokenizer_path']
 	tokenizer = load(open(tokenizer_path, 'rb'))
@@ -52,23 +59,34 @@ def run_captioning(image_file,):
 	try:
 		# Encode image using CNN Model
 		image = extract_features(image_file, image_model, config['model_type'])
+
+	except:
+		return (config['errmsg_imgopen'] + '.')
+	try:
+
 		if len(image) == 0:
-			return(config['errmsg_imgopen'])
+			return(config['errmsg_imgopen'] + '')
 		# Generate caption using Decoder RNN Model + BEAM search
 		generated_caption = generate_caption_beam_search(caption_model, tokenizer, image, max_length,
 														 beam_index=config['beam_search_k'])
+	except:
+		return (config['errmsg_imgopen'] + '..')
+	try:
 		# Remove startseq and endseq
 		desc_en = generated_caption.split()[1].capitalize()
 		for x in generated_caption.split()[2:len(generated_caption.split()) - 1]:
 			desc_en = desc_en + ' ' + x
 		desc_en += '.'
 
+	except:
+		return (config['errmsg_imgopen'] + '...')
+	try:
 		# Show image and its caption
 		print('BEAM Search with k=', config['beam_search_k'])
 		return (desc_en)
 	#	print(desc_ko,'\n\n')
 	except:
-		return(config['errmsg_imgopen'])
+		return(config['errmsg_imgopen']+'....')
 
 # Translation
 import urllib.request
@@ -85,9 +103,13 @@ def translation(input):
 	rescode = response.getcode()
 	if(rescode==200):
 		response_body = response.read()
-		return(response_body.decode('utf-8'))
+		return(response_body.decodepppp('utf-8'))
 	else:
 		return("Error Code:" + rescode)
+
+def testimport(input):
+	output=input+' and this is output'
+	return(output)
 
 if __name__ == '__main__':
 	import argparse
@@ -98,4 +120,4 @@ if __name__ == '__main__':
 
 	myresult=run_captioning(img_path)
 	print(myresult)
-	print(translation(myresult))
+#	print(translation(myresult))

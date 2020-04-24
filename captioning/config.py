@@ -17,7 +17,7 @@ config = {
 	'test_data_path': 	BASE_DIR + 'test_data/', #Make sure you put that last slash(/)
 	'model_type': 'inceptionv3', # inceptionv3 or vgg16
 	'random_seed': 1035,
-	'errmsg_imgopen' : "오류: 이미지를 불러올 수 없습니다. 이미지 경로와 확장자가 맞는지 확인해주세요.",
+	'errmsg_imgopen' : "오류: 이미지를 불러올 수 없습니다! 이미지 경로와 확장자가 맞는지 확인해주세요",
 }
 
 rnnConfig = {
