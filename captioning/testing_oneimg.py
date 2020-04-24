@@ -7,9 +7,22 @@ import os
 
 from config import config
 
+
+
 # for thread error
 import keras.backend.tensorflow_backend as tb
 tb._SYMBOLIC_SCOPE.value = True
+
+
+# for initialize memory
+# status initialize
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '0' # 초기화할 GPU number
+# out of memory
+import tensorflow as tf
+with tf.Graph().as_default():
+  gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
+
 
 """
     *Some simple checking
