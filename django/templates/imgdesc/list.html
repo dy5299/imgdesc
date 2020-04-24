@@ -24,7 +24,7 @@
       </td>
       <td>{{ lst.caption }}</td>
       <td>{{ lst.created_date }}</td>
-      <td><a href="#">Del</a></td>
+      <td><a href="{% url 'imgdesc:board' pk=lst.pk mode='del' %}">Del</a></td>
     </tr>
   {% endfor %}
   </tbody>

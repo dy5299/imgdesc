@@ -1,3 +1,4 @@
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import ImgdescDB
 
@@ -11,12 +12,12 @@ from .forms import PostForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-'''
+
 # captioning
 import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../captioning/')))
-from testing_oneimg import run_captioning#, translation
-'''
+from testing_oneimg import run_captioning, testimport#, translation
+
 # Create your views here.
 class IndexView(generic.TemplateView):
     def get(self, request, *args, **kwargs):
@@ -32,18 +33,9 @@ class ListView(generic.TemplateView):
 #        user = User.objects.get(username=username)  # object
 #        mydb = ImgdescDB.objects.all().filter(userid=request.user)
         mydb = ImgdescDB.objects.all()
-        return render(request, 'imgdesc/list.html', {'user': request.user,'mydb' : mydb})
+        return render(request, 'imgdesc/list.html', {'mydb' : mydb})    #리턴에 'user': request.user 지움.for templatetags
         #return render(request, "imgdesc/list.html", {'username': username, 'mydb': mydb})
 
-
-
-'''
-class PostView(View):
-    def get(self, request):
-        return
-    def post(self, request):
-        return
-'''
 
 
 class BoardView(View):
@@ -58,6 +50,10 @@ class BoardView(View):
             post = get_object_or_404(ImgdescDB, pk=pk)
             form = PostForm(instance=post)      #instance라는 parameter에 model data(post) 넣음
             return render(request, "imgdesc/edit.html", {'form':form})
+        elif mode == 'del' :
+            post = get_object_or_404(ImgdescDB, pk=pk)
+            post.delete()
+            return redirect('/imgdesc/list')
         else :
             return HttpResponse("error page")
 
@@ -68,10 +64,10 @@ class BoardView(View):
 
         # 글쓰기에서 submit 시
         if pk == 0:
-            print(request.user)
-            print(User)
             author = ImgdescDB.objects.create(userid=request.user)              #user id는 폼 이전에 미리 채움. NOT NULL이라서
             form = PostForm(request.POST, request.FILES, instance=author)       #받은 데이터로 폼 채움
+
+
 
         # 수정에서 submit 시
         else:
@@ -81,17 +77,31 @@ class BoardView(View):
         #폼 유효성 검사
         if form.is_valid():
             post = form.save(commit=False)
+
             if pk == 0 :
+                pho = request.FILES.get('photo')
+                uploaded_image = ImgdescDB(photo=pho)
+
+                mydir=uploaded_image.photo.url.split('/')
+                import datetime
+                today = datetime.date.today()
+#                mydir2 = testimport("/" + "".join(mydir[:-1]) + '{:/%Y%m/%d/}'.format(today) + mydir[-1])
+                mydir2 = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'media') + '{:/%Y%m/%d/}'.format(today) + mydir[-1]
+                captioning_result = run_captioning(mydir2)
+#                captioning_result = testimport(mydir2)
+                post.caption = captioning_result
+
 #                post.userid = request.user      #유효성 한 다음에 다시 user 넣는건가.. 위와 중복이라 뺌.
-                #            captioning_result = run_captioning(request.FILES)
-                post.caption = 'caption_automatic test'     #결과는 이자리에 넣으면 된다.
                 post.save()         #form data로부터 post data(model data)를 얻기 위해서 save. NOT for save.
+
+
             else :
                 post.publish()
-            return redirect('/imgdesc/list')
-#        else:
-#            redirect('/fail/')
-        return render(request, 'imgdesc/edit.html', {'form':form})
+#            return redirect('/imgdesc/list')
+            return JsonResponse({'error': False, 'message': 'Uploaded Successfully'})
+        else:
+#            return render(request, 'imgdesc/edit.html', {'form':form})
+            return JsonResponse({'error': True, 'errors': form.errors})
 
 
 

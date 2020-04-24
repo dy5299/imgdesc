@@ -2,15 +2,59 @@
 {% block content %}
 
 {% if form.photo.value %}
-<h2>수정하기</h2>
+<!--수정-->
+<form method="post" enctype="multipart/form-data" id="ajax_upload_form">
+{% csrf_token %}
+    <div class="form-group">
+      {{ form.as_p }}
+    </div>
+    <input type="submit" class="btn btn-primary" value="Upload">
+</form>
 {% else %}
-<h2>신규작성</h2>
+
+<!--신규작성-->
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="form-group">
+      {{ form.as_p }}
+      <small id="fileHelp" class="form-text text-muted">jpg, jpeg, png, bmp 그림 파일을 지원합니다.</small>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Upload">
+</form>
 {% endif %}
 
 
-<form method="post" enctype="multipart/form-data">
-{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn btn-primary" value="Upload">
-</form>
+
+   <script type="text/javascript">
+    // form upload
+    $('#ajax_upload_form').submit(function(e){
+        e.preventDefault();
+        $form = $(this)
+        var formData = new FormData(this);
+        $.ajax({
+            url: window.location.pathname,
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $('.error').remove();
+                console.log(response)
+                if(response.error){
+                    $.each(response.errors, function(name, error){
+                        error = '<small class="text-muted error">' + error + '</small>'
+                        $form.find('[name=' + name + ']').after(error);
+                    })
+                }
+                else{
+                    alert(response.message)
+                    window.location = "/imgdesc/list"
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+    // end
+   </script>
+
 {% endblock %}
