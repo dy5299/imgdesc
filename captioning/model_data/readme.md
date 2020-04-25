@@ -1,5 +1,4 @@
 <h1>Model Data Folder</h1>
-
 When you run the project, some files will be generated which'll be stored here
 
 <ul type="square">

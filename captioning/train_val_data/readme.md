@@ -1,5 +1,4 @@
 <h1>Train-Validation Folder</h1>
-
 Download link for Flikr8k Dataset : <a href="https://forms.illinois.edu/sec/1713398">Dataset Request Form</a>
 
 <strong>UPDATE (April/2019):</strong> The official site seems to have been taken down (although the form still works). Here are some direct download links:
