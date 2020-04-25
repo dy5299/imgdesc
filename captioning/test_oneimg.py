@@ -96,16 +96,20 @@ def run_captioning(image_file):
 	try:
 		# Show image and its caption
 		print('BEAM Search with k=', config['beam_search_k'])
-		return (desc_en)
+		print(desc_en)
+		desc_ko = translation(desc_en)['translatedText']
+		print(desc_ko)
+		return (desc_en, desc_ko)
 	#	print(desc_ko,'\n\n')
 	except:
 		return(config['errmsg_imgopen']+'....')
 
 # Translation
+from credentials import creds
 import urllib.request
 def translation(input):
-	client_id = "9eIZqLhZraxAoH9VlCNL"  # 개발자센터에서 발급받은 Client ID 값
-	client_secret = "DtPF330iLN" # 개발자센터에서 발급받은 Client Secret 값
+	client_id = creds('naver_papago')[0]		# 개발자센터에서 발급받은 Client ID 값
+	client_secret = creds('naver_papago')[1]	# 개발자센터에서 발급받은 Client Secret 값
 	encText = urllib.parse.quote(input)
 	data = "source=en&target=ko&text=" + encText
 	url = "https://openapi.naver.com/v1/papago/n2mt"
@@ -116,7 +120,7 @@ def translation(input):
 	rescode = response.getcode()
 	if(rescode==200):
 		response_body = response.read()
-		return(response_body.decodepppp('utf-8'))
+		return(response_body.decode('utf-8'))
 	else:
 		return("Error Code:" + rescode)
 
