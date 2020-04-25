@@ -1,4 +1,5 @@
 {% extends 'imgdesc/header.html' %}
+{% block title %}IMAGE TO TXT - 리스트{% endblock %}
 {% block content %}
 
 <table class="table table-hover">
@@ -29,5 +30,29 @@
   {% endfor %}
   </tbody>
 </table>
+<!--navigation-->
+{% if mydb.has_other_pages %}
+    {% if mydb.has_previous %}
+        <a href="?page={{ mydb.previous_page_number }}">Previous</a>
+    {% else %}
+        <span>Previous</span>
+    {% endif %}
+
+
+    {% for i in mydb.paginator.page_range %}
+        {% if mydb.number == i %}
+            <span>{{ i }}</span>
+        {% else %}
+            <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+
+
+    {% if mydb.has_next %}
+        <a href="?page={{ mydb.next_page_number }}">Next</a>
+    {% else %}
+        <span>Next</span>
+    {% endif %}
+{% endif %}
 
 {% endblock %}

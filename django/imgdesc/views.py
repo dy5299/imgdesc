@@ -11,6 +11,7 @@ from .forms import PostForm
 
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 # captioning
@@ -32,12 +33,18 @@ class ListView(generic.TemplateView):
 #        username = request.session['username']  # text
 #        user = User.objects.get(username=username)  # object
 #        mydb = ImgdescDB.objects.all().filter(userid=request.user)
-        mydb = ImgdescDB.objects.all()
-        return render(request, 'imgdesc/list.html', {'mydb' : mydb})    #리턴에 'user': request.user 지움.for templatetags
+        mydb = ImgdescDB.objects.all().order_by('-created_date')
+        # pagination
+        page = request.GET.get('page', 1)
+        p = Paginator(mydb, 10)  # collection 형태의 데이터면 상관 없다 / page 당 개수
+        mydb_sub = p.page(page)
+
+        return render(request, 'imgdesc/list.html', {'mydb' : mydb_sub})    #리턴에 'user': request.user 지움.for templatetags
         #return render(request, "imgdesc/list.html", {'username': username, 'mydb': mydb})
 
 
 
+#@login_required
 class BoardView(View):
     def get(self, request, pk, mode):     #특정 포스트를 수정하므로 pk parameter를 받아와야 한다.
         if mode == 'detail':
