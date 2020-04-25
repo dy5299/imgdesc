@@ -94,12 +94,10 @@ def run_captioning(image_file):
 	except:
 		return (config['errmsg_imgopen'] + '...')
 	try:
-		# Show image and its caption
+		# show captions
 		print('BEAM Search with k=', config['beam_search_k'])
 		print(desc_en)
-		desc_ko = translation(desc_en)['translatedText']
-		print(desc_ko)
-		return (desc_en, desc_ko)
+		return (desc_en)
 	#	print(desc_ko,'\n\n')
 	except:
 		return(config['errmsg_imgopen']+'....')
@@ -120,7 +118,9 @@ def translation(input):
 	rescode = response.getcode()
 	if(rescode==200):
 		response_body = response.read()
-		return(response_body.decode('utf-8'))
+		response_body_utf=response_body.decode('utf-8')
+		import json
+		return(json.loads(response_body_utf)['message']['result']['translatedText'])
 	else:
 		return("Error Code:" + rescode)
 

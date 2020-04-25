@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 # captioning
 import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../captioning/')))
-from testing_oneimg import run_captioning, testimport#, translation
+from test_oneimg import run_captioning, testimport, translation
 
 # Create your views here.
 class IndexView(generic.TemplateView):
@@ -85,11 +85,10 @@ class BoardView(View):
                 mydir=uploaded_image.photo.url.split('/')
                 import datetime
                 today = datetime.date.today()
-#                mydir2 = testimport("/" + "".join(mydir[:-1]) + '{:/%Y%m/%d/}'.format(today) + mydir[-1])
                 mydir2 = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'media') + '{:/%Y%m/%d/}'.format(today) + mydir[-1]
                 captioning_result = run_captioning(mydir2)
-#                captioning_result = testimport(mydir2)
-                post.caption = captioning_result
+#                captioning_result = testimport('testing')
+                post.caption = captioning_result + '\t' + translation(captioning_result)
 
 #                post.userid = request.user      #유효성 한 다음에 다시 user 넣는건가.. 위와 중복이라 뺌.
                 post.save()         #form data로부터 post data(model data)를 얻기 위해서 save. NOT for save.
@@ -98,10 +97,10 @@ class BoardView(View):
             else :
                 post.publish()
 #            return redirect('/imgdesc/list')
-            return JsonResponse({'error': False, 'message': 'Uploaded Successfully'})
+            return JsonResponse({'status': 0, 'message': 'Uploaded Successfully'})
         else:
 #            return render(request, 'imgdesc/edit.html', {'form':form})
-            return JsonResponse({'error': True, 'errors': form.errors})
+            return JsonResponse({'status': -1, 'message': 'Failed', 'errors': form.errors})
 
 
 
