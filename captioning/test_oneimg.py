@@ -121,7 +121,7 @@ def translation(input):
 		return("Error Code:" + rescode)
 
 def testimport(input):
-	output=input+' and this is output'
+	output=input+' and nice'
 	return(output)
 
 if __name__ == '__main__':
