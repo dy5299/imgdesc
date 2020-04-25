@@ -83,11 +83,11 @@ def load_captions(filename):
 		if len(line) < 2:
 			continue
 		# Take the first token as the image id, the rest as the caption
-		image_id, image_caption = tokens[0], tokens[1:]
+		image_id, image_caption = tokens[0], tokens[1:]		#1000268201_693b08cb0e.jpg#0 , A child in a pink dress is climbing up a set of stairs in an entry way .
 		# Extract filename from image id
-		image_id = image_id.split('.')[0]
+		image_id = image_id.split('.')[0]					#1000268201_693b08cb0e
 		# Convert caption tokens back to caption string
-		image_caption = ' '.join(image_caption)
+		image_caption = ' '.join(image_caption)				#tokens[1:] 리스트를 텍스트로
 		# Create the list if needed
 		if image_id not in captions:
 			captions[image_id] = list()
