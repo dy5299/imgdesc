@@ -23,6 +23,7 @@ class ImgdescDB(models.Model):
     caption_en = models.CharField(max_length=100, blank=True, null=True)
     caption_ko = models.CharField(max_length=100, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
+    audio = models.FileField(blank=True, null=True)
 
     def _str__(self):   #객체의 문자열 표현 메소드
         return self.caption_en
