@@ -5,17 +5,24 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
     <meta name="description" content="">
     <meta name="author" content="">
 <!--    <link rel="icon" href="../../favicon.ico">-->
-    <title>IMAGE TO TXT</title>
+    <title>{% block title %}{% endblock %}</title>
 
-    <!-- 부트스트랩 https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css -->
-    <link rel="stylesheet" href="{% static 'imgdesc/css/bootstrap_theme.css' %}">
-    <!-- Custom styles for this template -->
-    <link href="{% static 'imgdesc/css/custom.css' %}" rel="stylesheet">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <!-- Third party plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'imgdesc/css/start_creativegh.css' %}" rel="stylesheet">
 
     <!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
     <!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
@@ -24,83 +31,44 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+
   <body>
-
-    <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">IMAGE TO TXT</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                  <li><a href="{% url 'accounts:signin'%}">Login</a></li>
-                  <li><a href="{% url 'accounts:signout'%}">Logout</a></li>
-                  <li><a href="{% url 'accounts:signup'%}">Register</a></li>
-                  <li><a href="{% url 'imgdesc:list' %}">List</a></li>
-                  <li><a href="{% url 'imgdesc:board' pk=0 mode='add' %}">Add</a></li>
-
-
-                  {% if user.is_authenticated %}
-                  <ul class="nav nav-pills">
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{% firstof user.username %}</a>
-                      <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="#">logout</a>
-                      </div>
-                    </li>
-                  </ul>
-                  {% else %}
-                  <ul class="nav nav-pills">
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">sign...</a>
-                      <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="{% url 'accounts:signin'%}">Login</a>
-                      </div>
-                      <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="#">Register</a>
-                      </div>
-                    </li>
-                  </ul>
-                  {% endif %}
-
-                </ul>
-              </nav>
-            </div>
+    <body id="page-top">
+      <!-- Navigation-->
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand js-scroll-trigger" href="#page-top">Oculus</a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto my-2 my-lg-0">
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'index' %}">Home</a></li>
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'imgdesc:list' %}">List</a></li>
+              {% if user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:signout'%}">{% firstof user.username %} Logout</a></li>
+              {% else %}
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:signin'%}">Login</a></li>
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accounts:signup'%}">Register</a></li>
+              {% endif %}
+            </ul>
           </div>
-
-          <div class="inner cover">
-            {% block content %}
-            {% endblock %}
-          </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            </div>
-          </div>
-
         </div>
-
-      </div>
-
-    </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<!--    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+      </nav>
 
 
+{% block content %}
+{% endblock %}
+
+
+    <!-- Footer-->
+    <footer class="bg-light py-5">
+      <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Start Bootstrap</div></div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <!-- Core theme JS-->
+    <script type="text/javascript" type="text/javascript" src="{% static 'imgdesc/js/start_creativegh.js' %}"></script>
+{% block js-foot %}{% endblock js-foot %}
 </body></html>
-
-    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="{% static 'imgdesc/js/custom.js' %}"></script>

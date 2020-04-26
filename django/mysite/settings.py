@@ -140,5 +140,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-#LOGIN_URL = '/accounts/signin/'
-LOGIN_REDIRECT_URL = '/'    #이건 로그인 이후 이동할 경로라는데.
+LOGIN_URL = '/accounts/signin/'
+#LOGIN_REDIRECT_URL = '/'    #이건 로그인 이후 이동할 경로라는데.

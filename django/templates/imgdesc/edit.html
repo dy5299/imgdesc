@@ -1,52 +1,73 @@
 {% extends 'imgdesc/header.html' %}
+{% block title %}IMAGE TO TXT - 작성{% endblock %}
 {% block content %}
 
-{% if form.photo.value %}
-<!--수정-->
+
+<header class="masthead">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-end">
+                <h1 class="text-uppercase text-white font-weight-bold">Add</h1>
+                <hr class="divider my-4" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 font-weight-light mb-5">
+
+
+
+
 <form method="post" enctype="multipart/form-data" id="ajax_upload_form">
 {% csrf_token %}
     <div class="form-group">
       {{ form.as_p }}
-    </div>
-    <input type="submit" class="btn btn-primary" value="Upload">
-</form>
-{% else %}
-
-<!--신규작성-->
-<form method="post" enctype="multipart/form-data">
-{% csrf_token %}
-    <div class="form-group">
-      {{ form.as_p }}
+      {% if form.photo.value %}
+      {% else %}<!--신규일 때-->
       <small id="fileHelp" class="form-text text-muted">jpg, jpeg, png, bmp 그림 파일을 지원합니다.</small>
+      {% endif %}
     </div>
-    <input type="submit" class="btn btn-primary" value="Upload">
+    <input type="submit" class="btn btn-primary btn-xl js-scroll-trigger" value="Upload">
 </form>
-{% endif %}
 
 
+                    </p>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
 
+
+{% block js-foot %}
    <script type="text/javascript">
     // form upload
     $('#ajax_upload_form').submit(function(e){
+        //preventDefault 는 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드이다. submit을 막음
         e.preventDefault();
-        $form = $(this)
+        // Get form
+        $form = $(this);
+        // Create an FormData object
         var formData = new FormData(this);
+        // disabled the submit button
+        $("#btnSubmit").prop("disabled",true);
+
         $.ajax({
             url: window.location.pathname,
             type: 'POST',
             data: formData,
+            timeout: 600000,
             success: function (response) {
-                $('.error').remove();
-                console.log(response)
-                if(response.error){
-                    $.each(response.errors, function(name, error){
-                        error = '<small class="text-muted error">' + error + '</small>'
-                        $form.find('[name=' + name + ']').after(error);
+                console.log(response);
+                if(response.status == -1){
+                    console.log("ERROR : ", error);
+                    $("#btnSubmit").prop("disabled",false);
+                    alert(response.message);
+                    $form.find('[name=' + name + ']').after(error);
                     })
                 }
                 else{
-                    alert(response.message)
-                    window.location = "/imgdesc/list"
+                    alert(response.message);
+                    $("#btnSubmit").prop("disabled",false);
+                    window.location = "/imgdesc/list";
                 }
             },
             cache: false,
@@ -56,5 +77,4 @@
     });
     // end
    </script>
-
-{% endblock %}
+{% endblock js-foot %}

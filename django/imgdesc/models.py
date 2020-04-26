@@ -20,11 +20,16 @@ class ImgdescDB(models.Model):
     userid = models.ForeignKey(User, models.DO_NOTHING, db_column='userID')  # Field name made lowercase.
 #    userid = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING) #이걸로하면 column선택 못해서..우선위에로
     photo = models.ImageField(upload_to="%Y%m/%d", null=False)
-    caption = models.CharField(max_length=100, blank=True, null=True)
+    caption_en = models.CharField(max_length=100, blank=True, null=True)
+    caption_ko = models.CharField(max_length=100, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
 
     def _str__(self):   #객체의 문자열 표현 메소드
-        return self.caption
+        return self.caption_en
+
+    def total_myphoto(self):
+        return self.img_no.count()
+
 '''
     # Delete overwriting 하면 파일이 ImgdescDB 객체 인스턴스와 함께 삭제될 것이다.
     def delete(self, *args, **kwargs):
