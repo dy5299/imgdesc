@@ -35,7 +35,7 @@ class ListView(generic.TemplateView):
         #        username = request.session['username']  # text
         #        user = User.objects.get(username=username)  # object
         #        mydb = ImgdescDB.objects.all().filter(userid=request.user)
-        mydb = ImgdescDB.objects.select_related('userid').all().order_by('-img_no')
+        mydb = ImgdescDB.objects.filter(userid=request.user).all().order_by('-img_no')
         # pagination
         page = request.GET.get('page', 1)
         p = Paginator(mydb, 10)  # collection 형태의 데이터면 상관 없다 / page 당 개수
@@ -62,7 +62,7 @@ class tts(View):
         myvoicepath = os.path.splitext(mypost.photo.path)[0] + '.mp3'
         myvoicepath = myvoicepath.replace('\\','/')
         tts.save(myvoicepath)
-        message = '음성안내를 시작합니다'
+        message = '음성 안내를 시작합니다'
         #DB저장
         myvoiceurl = '/media/' + myvoicepath.split('media/')[-1]
         mypost.audio_url = myvoiceurl
@@ -70,7 +70,6 @@ class tts(View):
         context = {'myvoiceurl': myvoiceurl, 'message': message}
         return JsonResponse(context)
         # dic 형식을 json 형식으로 바꾸어 전달한다.
-
 
 
 class ListajaxView():
@@ -90,7 +89,6 @@ class ListajaxView():
             mydb = ImgdescDB.objects.all()
             text = self.request.POST['message']
             return JsonResponse({})
-
 
 
 class BoardView(LoginRequiredMixin, View):
@@ -140,7 +138,7 @@ class BoardView(LoginRequiredMixin, View):
                 import datetime
                 today = datetime.date.today()
                 myphotodir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                          'media') + '{/%Y%m/%d/}'.format(today)
+                                          'media/') + '{:%Y%m/%d/}'.format(today)
                 myphotourl = myphotodir + uploaded_image.photo.url.split('/')[-1]
                 captioning_result = run_captioning(myphotourl)
                 captioning_result_ko = translation(captioning_result)
@@ -160,28 +158,12 @@ class BoardView(LoginRequiredMixin, View):
 
             else:
                 post.publish()
-            #            return redirect('/imgdesc/list')
-            return JsonResponse({'status': 0, 'message': 'Uploaded Successfully'})
+            return redirect('/imgdesc/list')
+#            return JsonResponse({'status': 0, 'message': 'Uploaded Successfully'})
+
         else:
-            #            return render(request, 'imgdesc/edit.html', {'form':form})
-            return JsonResponse({'status': -1, 'message': 'Failed', 'errors': form.errors})
-
-
-class TTSView(View):
-    def get(self, request, pk):
-        cap_txt = ImgdescDB.objects.get(img_no=pk).caption_ko
-        captioning_result_ko = cap_txt.split('\t')[-1]
-
-        myphotodir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                  'media') + '{:/%Y%m/%d/}'.format(today)
-        myphotourl = myphotodir + uploaded_image.photo.url.split('/')[-1]
-
-        # tts
-        from gtts import gTTS
-        tts = gTTS(text=captioning_result_ko, lang='ko')
-        myvoiceurl = os.path.splitext(myphotourl)[0] + '.mp3'
-        tts.save(myvoiceurl)
-        return render(request, 'imgdesc/TTSresult.html', {'myvoiceurl': myvoiceurl, 'mydb': mydb})
+            return render(request, 'imgdesc/edit.html', {'form':form})
+#            return JsonResponse({'status': -1, 'message': 'Failed', 'errors': form.errors})
 
 
 
