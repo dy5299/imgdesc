@@ -30,7 +30,7 @@ class IndexView(generic.TemplateView):
         return render(request, template_name, {'user': request.user, 'mydb': mydb})
 
 
-class ListView(generic.TemplateView):
+class ListView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         #        username = request.session['username']  # text
         #        user = User.objects.get(username=username)  # object
@@ -62,7 +62,7 @@ class tts(View):
         myvoicepath = os.path.splitext(mypost.photo.path)[0] + '.mp3'
         myvoicepath = myvoicepath.replace('\\','/')
         tts.save(myvoicepath)
-        message = '음성 안내를 시작합니다'
+        message = '음성 생성 중입니다. 새로고침해주세요'
         #DB저장
         myvoiceurl = '/media/' + myvoicepath.split('media/')[-1]
         mypost.audio_url = myvoiceurl

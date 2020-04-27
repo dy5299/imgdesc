@@ -70,7 +70,9 @@
 
                         </td>
                         <td>{{ lst.created_date }}</td>
-                        <td><a href="{% url 'imgdesc:board' pk=lst.pk mode='del' %}">Del</a></td>
+                        <td><span class="control hidden">
+                          <a href="{% url 'imgdesc:board' pk=lst.pk mode='del' %}" onclick="return confirm('정말 삭제하시겠습니까?')">
+                            Del</a></td>
                       </tr>
                     {% endfor %}
                     </tbody>
